@@ -1,0 +1,18 @@
+canvas {
+    width: 100% !important;
+    /* height: 100% !important; */
+    margin: auto;
+    max-width: 850px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    canvas {
+      max-width: none;
+      margin-top: 30px;
+    }
+  }
+  
+
+.admin{
+  height: 96vh;
+}

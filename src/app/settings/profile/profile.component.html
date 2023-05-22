@@ -1,0 +1,133 @@
+<div class="container">
+  <p class="d-flex mb-2 pb-2 align-items-center justify-content-start">
+    <a routerLink="/" class="m-0">
+      <i class="fa-solid mr-1 fa-chevron-left"></i>
+      Home</a
+    >
+  </p>
+
+  <div class="my-4">
+    <div class="d-flex justify-content-between">
+      <h3>Profile</h3>
+      <p>
+        <strong class="mr-1">Since:</strong
+        >{{ user.createdAt | date : "mediumDate" }}
+      </p>
+    </div>
+    <hr />
+    <div class="col-md-12 mt-6 box">
+      <div class="d-flex justify-content-between">
+        <h5>Update</h5>
+        <p>
+          <strong class="mr-1">Last Update:</strong
+          >{{ user.updatedAt | timeAgo }}
+        </p>
+      </div>
+
+      <form class="my-4" [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+        <div class="mb-4">
+          <div class="field">
+            <div class="d-flex">
+              <p class="control w-100 mr-2">
+                <input
+                  [(ngModel)]="user.firstName"
+                  autocomplete="off"
+                  class="input"
+                  name="firstName"
+                  type="text"
+                  formControlName="firstName"
+                  placeholder="First Name"
+                  [ngClass]="{
+                    'is-danger':
+                      firstName.invalid &&
+                      (firstName.dirty || firstName.touched),
+                    'is-success': firstName.valid
+                  }"
+                />
+
+                <app-error-field
+                  [control]="firstName"
+                  [errorMessages]="validationMessages.firstName"
+                >
+                </app-error-field>
+              </p>
+              <p class="control w-100">
+                <input
+                  [(ngModel)]="user.lastName"
+                  autocomplete="off"
+                  class="input"
+                  name="lastName"
+                  type="text"
+                  formControlName="lastName"
+                  placeholder="Last Name"
+                  [ngClass]="{
+                    'is-danger':
+                      lastName.invalid && (lastName.dirty || lastName.touched),
+                    'is-success': lastName.valid
+                  }"
+                />
+                <app-error-field
+                  [control]="lastName"
+                  [errorMessages]="validationMessages.lastName"
+                >
+                </app-error-field>
+              </p>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input class="input" [value]="user.email" type="text" disabled />
+            </div>
+          </div>
+
+          <div class="file has-name is-boxed field">
+            <label class="file-label w-100">
+              <input
+                class="file-input"
+                type="file"
+                name="resume"
+                (change)="handleUpload($event)"
+              />
+              <span
+                *ngIf="backroundInputImage"
+                style="width: 100%; height: 300px"
+                [style.background-image]="backroundInputImage"
+                class="file-cta w-100 input is-success"
+              >
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">Update your profile picture...</span>
+              </span>
+
+              <span
+                *ngIf="!backroundInputImage"
+                style="width: 100%; height: 300px"
+                [style.background-image]="updatedBackroundInputImage"
+                class="file-cta w-100 input is-success"
+              >
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">profile picture uploded...</span>
+                <span>{{ imageName }}</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="my-4">
+            <button
+              type="submit"
+              class="btn w-100 my-1"
+              [disabled]="profileForm.invalid"
+              [ngClass]="profileForm.invalid ? 'btn-primary' : 'btn-success'"
+            >
+              Update Profile
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

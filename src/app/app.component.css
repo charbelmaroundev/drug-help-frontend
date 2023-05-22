@@ -1,0 +1,9 @@
+.error{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.scrollarea{
+    min-height: 500px;
+}

@@ -1,0 +1,24 @@
+.min-length-text-30{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30ch;
+}
+
+.disable{
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.disable::after{
+    content: "Yours";
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    margin: 8px 5px 0 0;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 14px;
+    color: white;
+    background-color: red;
+}

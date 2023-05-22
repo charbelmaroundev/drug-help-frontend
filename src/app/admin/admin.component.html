@@ -1,0 +1,83 @@
+<div class="row admin">
+  <div class="col-1 border">
+    <aside class="menu p-1">
+      <p class="menu-label">Admin</p>
+      <ul class="menu-list px-0">
+        <li class="border">
+          <a routerLink="/admin">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa-solid fa-chart-line"></i>
+            </span>
+            <span class="ml-1">Statistics</span>
+          </a>
+        </li>
+        <li class="border">
+          <a routerLink="/admin/chat">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa fa-comments"></i>
+            </span>
+            <span class="ml-1">Chats</span>
+          </a>
+        </li>
+        <li class="border">
+          <a routerLink="/admin/users">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa fa-users"></i>
+            </span>
+            <span class="ml-1">Users</span>
+          </a>
+        </li>
+        <li class="border">
+          <a (click)="onLogout()">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa fa-right-from-bracket"></i>
+            </span>
+            <span>Log out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div class="col-11">
+    <nav class="level">
+      <div class="level-item has-text-centered mx-1 p-3 border border-1">
+        <div>
+          <p class="heading">Total Users</p>
+          <p
+            class="is-size-1 title"
+            [countUp]="totalUsers"
+            [duration]="2500"
+          ></p>
+        </div>
+      </div>
+
+      <div class="level-item has-text-centered mx-1 p-3 border border-1">
+        <div>
+          <p class="heading">Total Posts</p>
+          <p
+            class="is-size-1 title"
+            [countUp]="totalPosts"
+            [duration]="2500"
+          ></p>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-6 mt-4">
+        <a routerLink="created-users-per-month">
+          <app-users-per-month class="row mx-3"></app-users-per-month>
+        </a>
+
+        <a routerLink="posts-per-month">
+          <app-posts-per-month class="row mx-3"></app-posts-per-month>
+        </a>
+      </div>
+      <div class="col-6">
+        <a routerLink="post-by-location">
+          <app-post-by-location-chart class="mx-3"></app-post-by-location-chart>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

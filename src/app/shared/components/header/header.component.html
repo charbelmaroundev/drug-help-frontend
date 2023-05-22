@@ -1,0 +1,171 @@
+<div *ngIf="user.role !== 'ADMIN'" class="box">
+  <nav class="navbar container navbar-expand-md navbar-light">
+    <div class="container-fluid p-0">
+      <a class="navbar-item">
+        <img
+          routerLink="/"
+          src="../../assets/logo.png"
+          width="112"
+          height="28"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form
+          [formGroup]="searchForm"
+          class="navbar-nav me-auto mx-1 mx-lg-3 justify-content-between w-75"
+        >
+          <div class="field has-addons flex-md-grow-1">
+            <div style="width: 100%" class="control search-input">
+              <input
+                routerLink="/"
+                autofocus
+                (input)="onSearch($event)"
+                class="input"
+                type="text"
+                placeholder="Search..."
+              />
+            </div>
+          </div>
+        </form>
+
+        <div class="d-flex navbar-end">
+          <div class="d-flex align-items-center">
+            <a
+              routerLink="/auth"
+              routerLinkActive="router-link-active"
+              class="icon-text button border-0 mx-0 mx-lg-2"
+              *ngIf="!(isAuthenticated | async)"
+            >
+              <span class="icon has-text-info">
+                <i class="fa fa-right-to-bracket"></i>
+              </span>
+              <span>Log in</span>
+            </a>
+
+            <div *ngIf="isAuthenticated | async" class="mr-5">
+              <div class="dropdown is-right" [class.is-active]="porfileClicked">
+                <div class="dropdown-trigger">
+                  <a
+                    (click)="porfileClicked = !porfileClicked"
+                    class="mx-1 border-0 has-text-info"
+                  >
+                    <i
+                      class="header-icon fa-user"
+                      [ngClass]="
+                        porfileClicked
+                          ? ['fa-solid', 'header-icon-clicked']
+                          : ['fa-regular']
+                      "
+                    ></i>
+                  </a>
+                </div>
+                <div
+                  class="dropdown-menu my-3 p-0"
+                  id="dropdown-menu"
+                  role="menu"
+                  style="width: 300px"
+                >
+                  <div
+                    class="p-2 d-flex justify-content-between align-items-center"
+                  >
+                    <ngx-avatar
+                      *ngIf="user.picture"
+                      [src]="user.picture"
+                      size="60"
+                    ></ngx-avatar>
+
+                    <ngx-avatar
+                      size="60"
+                      *ngIf="!user.picture"
+                      [name]="user.firstName"
+                    ></ngx-avatar>
+
+                    <div class="w-75 ml-3">
+                      <p class="is-size-6 has-text-grey-light m-0">Hello,</p>
+                      <p class="is-size-5 m-0 max-length-5">
+                        {{ user.firstName }}
+                      </p>
+                      <p class="m-0">
+                        <a
+                          (click)="porfileClicked = !porfileClicked"
+                          routerLink="/settings/profile"
+                          class="is-size-7 has-text-grey is-ghost button p-0"
+                          >View and edit your profile</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+
+                  <a
+                    routerLink="/my-posts"
+                    (click)="porfileClicked = !porfileClicked"
+                    class="d-flex border-top p-2 justify-content-start option-porfile"
+                  >
+                    <span class="dropdown-item" class="icon has-text-info">
+                      <i class="fa fa-rectangle-ad"></i>
+                    </span>
+                    <span class="pl-3">My posts</span>
+                  </a>
+
+                  <a
+                    (click)="porfileClicked = !porfileClicked"
+                    routerLink="/settings"
+                    class="d-flex p-2 justify-content-start option-porfile"
+                  >
+                    <span class="dropdown-item" class="icon has-text-info">
+                      <i class="fa fa-gear"></i>
+                    </span>
+                    <span class="pl-3">Privacy</span>
+                  </a>
+                  <a
+                    (click)="porfileClicked = !porfileClicked"
+                    class="d-flex border-top p-2 justify-content-start option-porfile"
+                    (click)="onLogout()"
+                  >
+                    <span class="dropdown-item" class="icon has-text-info">
+                      <i class="fa fa-right-from-bracket"></i>
+                    </span>
+                    <span class="pl-3">Log out</span>
+                  </a>
+                </div>
+              </div>
+
+              <a routerLink="/chat" class="mx-1 border-0 has-text-info">
+                <i class="fa-regular header-icon fa-comment"></i>
+              </a>
+
+              <a
+                routerLink="/create"
+                class="display-block d-none mx-1 border-0 has-text-info"
+              >
+                <i class="fa-regular header-icon fa-plus"></i>
+              </a>
+            </div>
+
+            <a
+              routerLink="/create"
+              (click)="onSell()"
+              class="button is-rounded display-none is-info is-outlined"
+            >
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
+              </span>
+              <span>Sell</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

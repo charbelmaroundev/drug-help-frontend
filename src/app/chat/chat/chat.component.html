@@ -1,0 +1,105 @@
+<div class="container container1">
+  <section class="message-area border border-1">
+    <div class="">
+      <div class="row">
+        <div class="col-12" style="height: 100%">
+          <div class="chat-area">
+            <!-- chatlist -->
+            <div class="chatlist">
+              <div class="modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="chat-header">
+                    <div class="msg-search"></div>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item p-2 row" role="presentation">
+                        <a routerLink="/" class="m-0 col-5">
+                          <i class="fa-solid mr-1 fa-chevron-left"></i>
+                          Home</a
+                        >
+                        <span class="has-text-grey col-6">Chat</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div
+                    cdkDropList
+                    (cdkDropListDropped)="drop($event)"
+                    class="modal-body"
+                  >
+                    <!-- chat-list -->
+                    <div
+                      cdkDrag
+                      *ngFor="let room of rooms"
+                      class="chat-lists border-bottom"
+                    >
+                      <a
+                        (click)="notClicked = true"
+                        class="tab-content"
+                        id="myTabContent"
+                      >
+                        <div
+                          class="tab-pane fade show active"
+                          id="Open"
+                          role="tabpanel"
+                          aria-labelledby="Open-tab"
+                        >
+                          <!-- chat-list -->
+                          <div class="chat-list">
+                            <a
+                              routerLink="{{ room.id }}"
+                              routerLinkActive="active"
+                              class="d-flex m-0 align-items-center"
+                            >
+                              <div class="flex-shrink-0">
+                                <ngx-avatar
+                                  *ngIf="room.participants[0].picture"
+                                  [src]="room.participants[0].picture"
+                                ></ngx-avatar>
+
+                                <ngx-avatar
+                                  *ngIf="!room.participants[0].picture"
+                                  [name]="room.participants[0].firstName"
+                                ></ngx-avatar>
+                              </div>
+                              <div class="flex-grow-1 ms-3">
+                                <h3>
+                                  {{ room.participants[0].firstName }}
+                                  {{ room.participants[0].lastName }}
+                                </h3>
+                                <p>{{ room.participants[0].email }}</p>
+                              </div>
+                            </a>
+                          </div>
+                          <!-- chat-list -->
+                        </div>
+                      </a>
+                    </div>
+                    <!-- chat-list -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- chatlist -->
+
+            <!-- chatbox -->
+            <div class="chatbox">
+              <div class="modal-dialog-scrollable">
+                <router-outlet *ngIf="notClicked; else nothing"></router-outlet>
+                <ng-template #nothing>
+                  <div
+                    style="
+                      background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX3Va4j90vYwWF_5dULyxq3d7WKLWbkWvLWJ0EhBcf90ix5_Z0exdzvJjRAZpCk3IY-K8&usqp=CAU);
+                      height: 100%;
+                    "
+                  ></div
+                ></ng-template>
+              </div>
+            </div>
+          </div>
+          <!-- chatbox -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

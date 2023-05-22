@@ -1,0 +1,10 @@
+#divChart{
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: auto 0;
+}
+
+.admin{
+    height: 96vh;
+}

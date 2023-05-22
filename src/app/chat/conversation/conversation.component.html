@@ -1,0 +1,61 @@
+<div class="modal-content border">
+  <div class="msg-head">
+    <div class="row">
+      <div class="">
+        <div class="d-flex align-items-center">
+          <div class="flex-shrink-0">
+            <ngx-avatar
+              *ngIf="participant.picture"
+              [src]="participant.picture"
+              size="70"
+            ></ngx-avatar>
+
+            <ngx-avatar
+              *ngIf="!participant.picture"
+              [name]="participant.firstName"
+              size="70"
+            ></ngx-avatar>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <h3>{{ participant.firstName }} {{ participant.lastName }}</h3>
+            <p>{{ participant.email }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div #scrollMe class="modal-body">
+    <div class="msg-body">
+      <ul *ngIf="messagesList?.length; else nothing">
+        <li
+          *ngFor="let message of messagesList"
+          [ngClass]="participant.id === message.creatorId ? 'sender' : 'repaly'"
+        >
+          <p>{{ message.content }}</p>
+          <span class="time">{{ message.createdAt | timeAgo }}</span>
+        </li>
+      </ul>
+      <ng-template #nothing>
+        <p class="no-message has-text-centered mx-auto mt-1 is-size-7">
+          No messages yet!
+        </p>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="send-box">
+    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+      <input
+        autofocus
+        maxlength="45"
+        formControlName="message"
+        type="text"
+        class="form-control send-btn"
+        placeholder="Write a message..."
+      />
+
+      <button [disabled]="messageForm.invalid" type="submit">Send</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,234 @@
+<div class="row">
+  <div class="chat col-6 border user-profile" [class.col-12]="close">
+    <div class="chat__container">
+      <div
+        class="chat__wrapper d-flex is-flex-direction-column align-content-between pt-2 pt-mb-2"
+      >
+        <div
+          class="chat__messaging messaging-member--online pb-2 pl-2 pl-md-4 pr-2"
+        >
+          <div class="chat__previous d-flex d-md-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="svg-icon svg-icon--previous"
+              viewBox="0 0 45.5 30.4"
+            >
+              <path
+                d="M43.5,13.1H7l9.7-9.6A2.1,2.1,0,1,0,13.8.6L.9,13.5h0L.3,14v.6c0,.1-.1.1-.1.2v.4a2,2,0,0,0,.6,1.5l.3.3L13.8,29.8a2.1,2.1,0,1,0,2.9-2.9L7,17.2H43.5a2,2,0,0,0,2-2A2.1,2.1,0,0,0,43.5,13.1Z"
+                fill="#f68b3c"
+              />
+            </svg>
+          </div>
+          <div
+            class="chat__notification d-flex d-md-none chat__notification--new"
+          ></div>
+          <div class="chat__infos pl-2 pl-md-0">
+            <div
+              class="chat-member__wrapper d-flex justify-content-between"
+              data-online="true"
+            >
+              <div class="d-flex align-items-center">
+                <div class="chat-member__avatar mr-5">
+                  <ngx-avatar
+                    *ngIf="participant.picture"
+                    [src]="participant.picture"
+                    size="80"
+                  ></ngx-avatar>
+
+                  <ngx-avatar
+                    *ngIf="!participant.picture"
+                    [name]="participant.firstName"
+                    size="80"
+                  ></ngx-avatar>
+                </div>
+                <div class="chat-member__details">
+                  <span class="is-size-4 chat-member__name has-text-grey-dark"
+                    >{{ participant.firstName }}
+                    {{ participant.lastName }}</span
+                  >
+                </div>
+              </div>
+              <a
+                class="mr-1 p-2"
+                [class.d-none]="!close"
+                (click)="close = !close"
+              >
+                <i
+                  style="color: #3996fb"
+                  class="fa fa-2x fa-ellipsis-vertical"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          #scrollMe
+          style="
+            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX3Va4j90vYwWF_5dULyxq3d7WKLWbkWvLWJ0EhBcf90ix5_Z0exdzvJjRAZpCk3IY-K8&usqp=CAU);
+          "
+          class="chat__content pt-4 px-3"
+        >
+          <ul
+            class="chat__list-messages"
+            *ngIf="messagesList?.length; else nothing"
+          >
+            <li *ngFor="let message of messagesList">
+              <span
+                [ngClass]="
+                  participant.id === message.creatorId
+                    ? 'chat__bubble--you'
+                    : 'chat__bubble--me'
+                "
+                class="bg-white has-text-grey is-size-7"
+                >{{ message.createdAt | timeAgo }}</span
+              >
+              <div
+                [ngClass]="
+                  participant.id === message.creatorId
+                    ? 'chat__bubble--you'
+                    : 'chat__bubble--me'
+                "
+                class="chat__bubble"
+              >
+                {{ message.content }}
+              </div>
+            </li>
+          </ul>
+          <ng-template #nothing>
+            <p class="has-text-centered is-size-7 m-0">No messages yet!</p>
+          </ng-template>
+        </div>
+        <div
+          style="
+            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX3Va4j90vYwWF_5dULyxq3d7WKLWbkWvLWJ0EhBcf90ix5_Z0exdzvJjRAZpCk3IY-K8&usqp=CAU);
+          "
+          class="chat__send-container px-2 px-md-3"
+        >
+          <form
+            [formGroup]="messageForm"
+            (ngSubmit)="sendMessage()"
+            class="custom-form__send-wrapper mb-2"
+          >
+            <input
+              autofocus
+              type="text"
+              class="form-control custom-form"
+              id="message"
+              placeholder="Write a message..."
+              autocomplete="off"
+              formControlName="message"
+              maxlength="45"
+            />
+
+            <button type="submit" class="custom-form__send-submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="svg-icon svg-icon--send"
+                viewBox="0 0 45.6 45.6"
+              >
+                <g>
+                  <path
+                    d="M20.7,26.7a1.4,1.4,0,0,1-1.2-.6,1.6,1.6,0,0,1,0-2.4L42.6.5a1.8,1.8,0,0,1,2.5,0,1.8,1.8,0,0,1,0,2.5L21.9,26.1A1.6,1.6,0,0,1,20.7,26.7Z"
+                    fill="#d87232"
+                  />
+                  <path
+                    d="M29.1,45.6a1.8,1.8,0,0,1-1.6-1L19.4,26.2,1,18.1a1.9,1.9,0,0,1-1-1.7,1.8,1.8,0,0,1,1.2-1.6L43.3.1a1.7,1.7,0,0,1,1.8.4,1.7,1.7,0,0,1,.4,1.8L30.8,44.4a1.8,1.8,0,0,1-1.6,1.2ZM6.5,16.7l14.9,6.6a2,2,0,0,1,.9.9l6.6,14.9L41,4.6Z"
+                    fill="#d87232"
+                  />
+                </g>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="col-6 border px-4 px-sm-5 px-lg-4 user-profile"
+    [class.d-none]="close"
+  >
+    <div class="user-profile__close" (click)="close = !close">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="svg-icon"
+        viewBox="0 0 38.8 38.9"
+      >
+        <g>
+          <path
+            d="M2,38.9a1.9,1.9,0,0,1-1.4-.5,2.1,2.1,0,0,1,0-2.9L35.4.6a1.9,1.9,0,0,1,2.8,0,1.9,1.9,0,0,1,0,2.8L3.4,38.4A1.9,1.9,0,0,1,2,38.9Z"
+            fill="#d87232"
+          />
+          <path
+            d="M36.8,38.9a1.9,1.9,0,0,1-1.4-.5L.6,3.4A1.9,1.9,0,0,1,.6.6,1.9,1.9,0,0,1,3.4.6L38.2,35.5a2.1,2.1,0,0,1,0,2.9A1.9,1.9,0,0,1,36.8,38.9Z"
+            fill="#d87232"
+          />
+        </g>
+      </svg>
+    </div>
+    <div class="user-profile__wrapper my-6">
+      <div class="user-profile__avatar">
+        <ngx-avatar
+          *ngIf="participant.picture"
+          [src]="participant.picture"
+          size="200"
+        ></ngx-avatar>
+
+        <ngx-avatar
+          *ngIf="!participant.picture"
+          [name]="participant.firstName"
+          size="200"
+        ></ngx-avatar>
+      </div>
+      <div class="user-profile__details my-3">
+        <span class="user-profile__name"
+          >{{ participant.firstName }} {{ participant.lastName }}</span
+        >
+        <span class="user-profile__phone is-italic">
+          {{ participant.email }}
+        </span>
+      </div>
+
+      <div class="my-6">
+        <div class="row">
+          <div class="col-6 user-profile__learning mt-1">
+            <ul class="user-profile__tags user-profile__tags--primary mt-2">
+              <p class="mr-1 has-text-grey-dark fw-bold">Account:</p>
+              <p class="is-italic">{{ participant.status | titlecase }}</p>
+              <span *ngIf="participant.provider" class="d-flex ml-3">
+                <p class="mr-1 has-text-grey-dark fw-bold">By:</p>
+                <p class="is-italic">{{ participant.provider }}</p>
+              </span>
+            </ul>
+          </div>
+          <div class="col-6 user-profile__learning mt-1">
+            <ul class="user-profile__tags user-profile__tags--primary mt-2">
+              <p class="mr-1 has-text-grey-dark fw-bold">Role:</p>
+              <p class="is-italic">{{ participant.role | titlecase }}</p>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 user-profile__learning mt-1">
+            <ul class="user-profile__tags user-profile__tags--primary mt-2">
+              <p class="mr-1 has-text-grey-dark fw-bold">Since:</p>
+              <p class="is-italic">
+                {{ participant.createdAt | date : "mediumDate" }}
+              </p>
+            </ul>
+          </div>
+
+          <div class="col-6 user-profile__learning mt-1">
+            <ul class="user-profile__tags user-profile__tags--primary mt-2">
+              <p class="mr-1 has-text-grey-dark fw-bold">Last Seen:</p>
+              <p class="is-italic">
+                {{ participant.updatedAt | date : "mediumDate" }}
+              </p>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

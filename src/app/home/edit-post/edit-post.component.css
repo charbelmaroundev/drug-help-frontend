@@ -1,0 +1,22 @@
+select {
+  color: rgba(54,54,54,.3);
+}
+  
+option {
+  color: black;
+}
+  
+.py-10{
+  padding: 10rem;
+}
+
+.file-cta{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: white;
+}
+
+.file-cta:hover{
+  background-color: white;
+}

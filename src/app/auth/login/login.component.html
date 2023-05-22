@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3 mt-6 box">
+    <a routerLink="/" class="d-flex align-items-center">
+      <i class="fa-solid mr-1 fa-chevron-left"></i>
+      <p class="m-0">Home</p>
+    </a>
+    <p class="is-size-3 text-center">Log In</p>
+    <form class="my-3" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="mb-4">
+        <div class="field">
+          <p class="m-0 control">
+            <input
+              autocomplete="off"
+              class="input"
+              name="email"
+              type="text"
+              formControlName="email"
+              placeholder="Email"
+              [ngClass]="{
+                'is-danger': email.invalid && (email.dirty || email.touched),
+                'is-success': email.valid
+              }"
+            />
+          </p>
+
+          <app-error-field
+            [control]="email"
+            [errorMessages]="validationMessages.email"
+          >
+          </app-error-field>
+        </div>
+
+        <div class="field">
+          <p class="m-0 control">
+            <input
+              autocomplete="off"
+              class="input"
+              name="password"
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+              [ngClass]="{
+                'is-danger':
+                  password.invalid && (password.dirty || password.touched),
+                'is-success': password.valid
+              }"
+            />
+          </p>
+
+          <app-error-field
+            [control]="password"
+            [errorMessages]="validationMessages.password"
+          >
+          </app-error-field>
+        </div>
+      </div>
+
+      <p class="has-text-centered has-text-grey-light m-1">
+        Don't have an account ?
+        <a
+          [ngClass]="loginForm.invalid ? 'has-text-info' : 'has-text-success'"
+          routerLink="/auth/signup"
+          >Sign up</a
+        >
+      </p>
+
+      <div class="m-0">
+        <button
+          [disabled]="loginForm.invalid"
+          type="submit"
+          class="btn w-100"
+          [ngClass]="loginForm.invalid ? 'btn-primary' : 'btn-success'"
+        >
+          Log In
+        </button>
+      </div>
+
+      <div>
+        <p class="has-text-centered m-0">
+          <a
+            class="is-size-7"
+            [ngClass]="loginForm.invalid ? 'has-text-info' : 'has-text-success'"
+            routerLink="/auth/forgot-password"
+          >
+            Forgot password?</a
+          >
+        </p>
+      </div>
+
+      <div class="has-text-centered my-6 separator">
+        <div class="has-background-grey-lighter line"></div>
+        <div class="mx-2 is-size-7 has-text-grey">OR</div>
+        <div class="has-background-grey-lighter line"></div>
+      </div>
+
+      <div class="my-2">
+        <div class="field">
+          <a
+            (click)="onLoginGoogle()"
+            class="d-flex p-4 justify-content-between button"
+          >
+            <img src="../../assets/svg/google.svg" alt="" />
+            <span class="has-text-grey-light">Continue with Google</span>
+          </a>
+        </div>
+
+        <div class="field">
+          <a
+            (click)="onLoginFacebook()"
+            class="d-flex p-4 justify-content-between button"
+          >
+            <img src="../../assets/svg/facebook.svg" alt="" />
+            <span class="has-text-grey-light">Continue with Facebook</span>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

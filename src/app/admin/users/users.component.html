@@ -1,0 +1,93 @@
+<div class="row" [class.admin]="page">
+  <div *ngIf="page" class="col-1 border">
+    <aside class="menu p-1">
+      <p class="menu-label">Admin</p>
+      <ul class="menu-list px-0">
+        <li class="border">
+          <a routerLink="/admin">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa-solid fa-chart-line"></i>
+            </span>
+            <span class="ml-1">Statistics</span>
+          </a>
+        </li>
+        <li class="border">
+          <a routerLink="/admin/chat">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa fa-comments"></i>
+            </span>
+            <span class="ml-1">Chats</span>
+          </a>
+        </li>
+        <li class="border">
+          <a routerLink="/admin/users">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa fa-users"></i>
+            </span>
+            <span class="ml-1">Users</span>
+          </a>
+        </li>
+        <li class="border">
+          <a (click)="onLogout()">
+            <span class="dropdown-item" class="icon has-text-info">
+              <i class="fa fa-right-from-bracket"></i>
+            </span>
+            <span>Log out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div style="overflow: auto; height: 96vh" class="col-11">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>FIRST NAME</th>
+          <th>LAST NAME</th>
+          <th>EMAIL</th>
+          <th>ROLE</th>
+          <th>STATUS</th>
+          <th>SINCE</th>
+          <th>LAST UPDATE</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="example-box" *ngFor="let user of users">
+          <th>{{ user.id }}</th>
+          <th class="has-text-grey fw-normal">
+            {{ user.firstName | titlecase }}
+          </th>
+          <th class="has-text-grey fw-normal">
+            {{ user.lastName | titlecase }}
+          </th>
+          <th class="has-text-grey fw-normal">{{ user.email }}</th>
+          <th class="has-text-grey fw-normal">{{ user.role }}</th>
+          <th class="has-text-grey fw-normal">{{ user.status }}</th>
+          <th class="has-text-grey fw-normal">{{ user.createdAt | date }}</th>
+          <th class="has-text-grey fw-normal">{{ user.updatedAt | date }}</th>
+          <th class="p-0">
+            <button
+              style="min-width: 100px"
+              *ngIf="user.status !== 'BANNED'"
+              (click)="onBanUnBan(user.id, 'ban')"
+              class="btn btn-danger"
+            >
+              BAN
+            </button>
+            <button
+              style="min-width: 100px"
+              *ngIf="user.status === 'BANNED'"
+              (click)="onBanUnBan(user.id, 'unban')"
+              class="btn btn-danger"
+            >
+              UNBAN
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

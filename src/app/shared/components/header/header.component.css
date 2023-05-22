@@ -1,0 +1,58 @@
+.header-icon{
+    padding: 8px;
+}
+
+.header-icon:hover,
+.header-icon-clicked{
+    background-color: hsl(0, 0%, 86%);
+    border-radius: 40%;
+}
+
+.option-porfile:hover{
+    background-color: hsl(0, 0%, 86%);
+}
+
+select{
+    color: hsl(0, 0%, 71%);
+}
+
+option{
+    color: black;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after{
+    border-color: hsl(0, 0%, 48%);
+}
+
+.max-length-5{
+    display:inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15ch;
+}
+
+@media only screen and (max-width: 1024px) {
+    .display-none{
+        display: none;    
+    }
+
+    .display-block{
+        display: inline-block !important;
+    }
+}
+
+
+.search-input input{
+    padding: 0 1.5rem;
+    border-radius: 100px;
+}
+
+.search-input input:focus{
+    background-color: #3e8ed0;
+    color: white;
+}
+
+.search-input input:focus::placeholder  {
+    color: white;
+}

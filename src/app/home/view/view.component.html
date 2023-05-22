@@ -1,0 +1,62 @@
+<div class="container">
+  <a routerLink="/" class="d-flex mb-2 pb-2 align-items-center">
+    <i class="fa-solid mr-1 fa-chevron-left"></i>
+    <p class="m-0">Home</p>
+  </a>
+
+  <div class="row g-5 mx-1">
+    <div class="col-8">
+      <img
+        class="border border-radius"
+        style="width: 100%"
+        src="{{ post.imageUrl }}"
+        alt=""
+      />
+    </div>
+    <div class="col-4">
+      <div class="row mb-3 py-2 border border-radius">
+        <h2 class="mb-3 is-size-4">{{ post.priceInDollar | currency }}</h2>
+
+        <div class="d-flex is-size-6 justify-content-between">
+          <p class="m-0">{{ post.location | titlecase }}</p>
+          <p class="m-0">{{ post.createdAt | timeAgo }}</p>
+        </div>
+      </div>
+      <div class="row mb-3 pt-2 border border-radius">
+        <h2 class="mb-3 is-size-4">Seller Description</h2>
+
+        <div class="pb-3">
+          <div>
+            <strong class="mr-3">Name:</strong>
+            <p>
+              {{ post.creator.firstName | titlecase }}
+              {{ post.creator.lastName | titlecase }}
+            </p>
+          </div>
+          <div class="">
+            <strong class="mr-3">Email:</strong>
+            <p>{{ post.creator.email }}</p>
+          </div>
+          <div class="">
+            <strong class="mr-3">Since:</strong>
+            <p>{{ post.creator.createdAt | date : "MMM d, y" }}</p>
+          </div>
+        </div>
+
+        <button
+          class="btn w-100 btn-primary"
+          routerLink="/chat"
+          (click)="onContact()"
+        >
+          Contact
+        </button>
+      </div>
+      <div class="row mb-3 py-2 border border-radius">
+        <h2 class="mb-3 is-size-5">{{ post.title }}</h2>
+        <p class="m-0 is-size-6">
+          {{ post.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,175 @@
+<div class="container">
+  <p class="d-flex mb-2 pb-2 align-items-center justify-content-start">
+    <a routerLink="/" class="m-0">
+      <i class="fa-solid mr-1 fa-chevron-left"></i>
+      Home</a
+    >
+  </p>
+  <div class="my-4">
+    <h3>Privacy</h3>
+    <hr />
+
+    <div class="col-md-12 mt-6 box">
+      <div *ngIf="!provided; else providedUser">
+        <h5>Change Password</h5>
+
+        <form
+          class="my-4"
+          [formGroup]="changePasswordForm"
+          (ngSubmit)="onChangePassword()"
+        >
+          <div class="mb-4">
+            <div class="field">
+              <p class="m-0 control">
+                <input
+                  autocomplete="off"
+                  class="input"
+                  name="oldPassword"
+                  type="password"
+                  formControlName="oldPassword"
+                  placeholder="Old Password"
+                  [ngClass]="{
+                    'is-danger':
+                      oldPassword.invalid &&
+                      (oldPassword.dirty || oldPassword.touched),
+                    'is-success': oldPassword.valid
+                  }"
+                />
+              </p>
+
+              <app-error-field
+                [control]="oldPassword"
+                [errorMessages]="validationMessages.oldPassword"
+              >
+              </app-error-field>
+            </div>
+
+            <div class="field">
+              <p class="m-0 control">
+                <input
+                  autocomplete="off"
+                  class="input"
+                  name="newPassword"
+                  type="password"
+                  formControlName="newPassword"
+                  placeholder="New Password"
+                  [ngClass]="{
+                    'is-danger':
+                      newPassword.invalid &&
+                      (newPassword.dirty || newPassword.touched),
+                    'is-success': newPassword.valid
+                  }"
+                />
+              </p>
+
+              <app-error-field
+                [control]="newPassword"
+                [errorMessages]="validationMessages.newPassword"
+              >
+              </app-error-field>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <button
+              [disabled]="changePasswordForm.invalid"
+              type="submit"
+              class="btn w-100"
+              [ngClass]="
+                changePasswordForm.invalid ? 'btn-primary' : 'btn-success'
+              "
+            >
+              Change Password
+            </button>
+          </div>
+        </form>
+
+        <hr />
+
+        <h5>Delete Account</h5>
+
+        <form
+          [formGroup]="deleteUnlinkAccountForm"
+          (ngSubmit)="onDeleteUnlinkAccount()"
+          class="field my-4"
+        >
+          <p class="m-0 control">
+            <input
+              autocomplete="off"
+              class="input"
+              name="password"
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+              [ngClass]="{
+                'is-danger':
+                  password.invalid && (password.dirty || password.touched),
+                'is-success': newPassword.valid
+              }"
+            />
+          </p>
+
+          <app-error-field
+            [control]="password"
+            [errorMessages]="validationMessages.password"
+          >
+          </app-error-field>
+        </form>
+
+        <div class="my-4">
+          <button
+            (click)="onDeleteUnlinkAccount()"
+            type="submit"
+            class="btn btn-danger w-100 my-1"
+            [disabled]="deleteUnlinkAccountForm.invalid"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <ng-template #providedUser>
+        <h5>Unlink Account</h5>
+
+        <form
+          [formGroup]="deleteUnlinkAccountForm"
+          (ngSubmit)="onDeleteUnlinkAccount()"
+          class="field my-4"
+        >
+          <p class="m-0 control">
+            <input
+              autocomplete="off"
+              class="input"
+              name="password"
+              type="password"
+              formControlName="password"
+              placeholder="New Password"
+              [ngClass]="{
+                'is-danger':
+                  password.invalid && (password.dirty || password.touched),
+                'is-success': password.valid
+              }"
+            />
+          </p>
+
+          <app-error-field
+            [control]="password"
+            [errorMessages]="validationMessages.password"
+          >
+          </app-error-field>
+        </form>
+
+        <div class="my-4">
+          <button
+            (click)="onDeleteUnlinkAccount()"
+            type="submit"
+            class="btn btn-primary w-100 my-1"
+            [disabled]="deleteUnlinkAccountForm.invalid"
+          >
+            Unlink
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

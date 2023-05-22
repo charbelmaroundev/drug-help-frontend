@@ -1,0 +1,52 @@
+<div class="container">
+  <div
+    *ngIf="posts.length; else nothing"
+    class="row row-cols-1 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 g-4"
+  >
+    <div
+      [routerLink]="post.creatorId === userId ? '' : [post.id]"
+      *ngFor="let post of posts"
+      class="card-group col"
+    >
+      <a class="card" [class.disable]="post.creatorId === userId">
+        <img
+          [src]="post.imageUrl"
+          class="card-img-top"
+          style="background-size: cover; height: 250px"
+          alt="image for {{ post.title }}"
+        />
+        <div class="card-body">
+          <div>
+            <p class="card-text min-length-text-30 has-text-grey-light">
+              {{ post.title }}
+            </p>
+
+            <p
+              class="card-text min-length-text-30 is-size-7 has-text-grey-light"
+            >
+              {{ post.description }}
+            </p>
+          </div>
+          <p style="font-weight: bold" class="py-3 m-0">
+            {{ post.priceInDollar | currency }}
+          </p>
+          <p class="min-length-text-30">
+            {{ post.description }}
+          </p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <p class="is-size-7 m-0 card-text has-text-grey-light">
+            {{ post.location }}
+          </p>
+          <small class="has-text-grey-light">{{
+            post.createdAt | timeAgo
+          }}</small>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <ng-template #nothing>
+    <h5 class="has-text-grey-light">No Posts</h5>
+  </ng-template>
+</div>

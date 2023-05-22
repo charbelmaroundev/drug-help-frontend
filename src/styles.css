@@ -1,0 +1,39 @@
+@import 'bulma/css/bulma.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'font-awesome/css/font-awesome.css';
+
+a,
+.is-ghost:hover{
+    text-decoration: none !important;
+}
+
+.is-ghost{
+    text-decoration: underline !important;
+}
+
+a:focus{
+    box-shadow: none;
+}
+
+button:focus{
+    box-shadow: none !important;
+}
+
+.separator{
+    display:flex;
+    align-items: center;
+}
+  
+.separator .line{
+    height: 1px;
+    flex: 1;
+}
+
+::-webkit-scrollbar {
+    background-color: #f5f5f5;
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background-color: #3e8ed0;
+  }

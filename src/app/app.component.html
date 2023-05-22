@@ -1,0 +1,11 @@
+<app-loading-spinner *ngIf="showLoading | async"></app-loading-spinner>
+<div>
+  <div>
+    <app-header *ngIf="role !== 'ADMIN'"></app-header>
+
+    <app-notification-list></app-notification-list>
+    <div class="my-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="px-4">
+  <div class="m-2">
+    <a routerLink="/admin" class="button">
+      <span class="icon">
+        <i class="fa fa-chevron-left"></i>
+      </span>
+      <span>Back</span>
+    </a>
+  </div>
+</div>
+
+<div class="m-2 px-4">
+  <div class="home-page__content messages-page">
+    <div class="container-fluid">
+      <div class="row px-0 h-100">
+        <!-- start message list section  -->
+        <div class="col-4 border px-0 messages-page__list-scroll">
+          <div class="messages-page__header mb-0 px-4 pt-3 pb-3">
+            <span class="messages-page__title">Chats</span>
+          </div>
+
+          <ul
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            class="messages-page__list px-1 px-md-3 border-top"
+          >
+            <li
+              cdkDrag
+              *ngFor="let room of rooms"
+              class="messaging-member list-unstyled messaging-member--new border-bottom border-start border-end messaging-member--online"
+            >
+              <a
+                (click)="notClicked = true"
+                routerLink="{{ room.id }}"
+                routerLinkActive="active"
+                class="messaging-member__wrapper has-text-grey-dark"
+              >
+                <div class="messaging-member__avatar my-auto">
+                  <ngx-avatar
+                    *ngIf="room.participants[0].picture"
+                    [src]="room.participants[0].picture"
+                  ></ngx-avatar>
+
+                  <ngx-avatar
+                    *ngIf="!room.participants[0].picture"
+                    [name]="room.participants[0].firstName"
+                  ></ngx-avatar>
+                </div>
+
+                <span class="messaging-member__name">
+                  {{ room.participants[0].firstName }}
+                  {{ room.participants[0].lastName }}</span
+                >
+                <span class="messaging-member__message">{{
+                  room.messages[room.messages.length - 1]?.content
+                }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- end message list section  -->
+        <!-- start content section  -->
+        <div class="col-8 p-0">
+          <div *ngIf="notClicked; else nothing">
+            <router-outlet></router-outlet>
+          </div>
+          <ng-template #nothing>
+            <div
+              style="
+                background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX3Va4j90vYwWF_5dULyxq3d7WKLWbkWvLWJ0EhBcf90ix5_Z0exdzvJjRAZpCk3IY-K8&usqp=CAU);
+                height: 100%;
+              "
+            ></div
+          ></ng-template>
+        </div>
+
+        <!-- end infos section  -->
+      </div>
+    </div>
+  </div>
+</div>

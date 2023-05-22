@@ -1,0 +1,5 @@
+<ng-container *ngIf="control['errors'] && (control.dirty || control.touched)">
+  <p class="has-text-danger is-size-7">
+    {{ errorMessages | validation : control["errors"] }}
+  </p>
+</ng-container>

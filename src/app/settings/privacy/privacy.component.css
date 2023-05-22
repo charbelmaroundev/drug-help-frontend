@@ -1,0 +1,9 @@
+.modal-card{
+    width: 500px;
+}
+  
+.modal-card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

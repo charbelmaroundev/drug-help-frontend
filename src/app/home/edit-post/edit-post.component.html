@@ -1,0 +1,171 @@
+<div class="container">
+  <p class="d-flex mb-2 pb-2 align-items-center justify-content-start">
+    <a routerLink="/my-posts" class="m-0">
+      <i class="fa-solid mr-1 fa-chevron-left"></i>
+      Back</a
+    >
+  </p>
+
+  <div class="my-4">
+    <div class="col-md-12">
+      <h3>Update Post</h3>
+      <hr />
+      <form class="py-4" [formGroup]="updatePostForm" (ngSubmit)="onUpdate()">
+        <div class="mb-4">
+          <div class="field">
+            <p class="m-0 control">
+              <input
+                [(ngModel)]="post.title"
+                autocomplete="off"
+                class="input"
+                name="title"
+                type="text"
+                formControlName="title"
+                placeholder="Title"
+                [ngClass]="{
+                  'is-danger': title.invalid && (title.dirty || title.touched),
+                  'is-success': title.valid
+                }"
+              />
+            </p>
+
+            <app-error-field
+              [control]="title"
+              [errorMessages]="validationMessages.title"
+            >
+            </app-error-field>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <textarea
+                [(ngModel)]="post.description"
+                class="textarea"
+                name="description"
+                formControlName="description"
+                placeholder="Description"
+                [ngClass]="{
+                  'is-danger':
+                    description.invalid &&
+                    (description.dirty || description.touched),
+                  'is-success': description.valid
+                }"
+              ></textarea>
+
+              <app-error-field
+                [control]="description"
+                [errorMessages]="validationMessages.description"
+              >
+              </app-error-field>
+            </div>
+          </div>
+
+          <div class="file has-name is-boxed field">
+            <label class="file-label w-100">
+              <input
+                class="file-input"
+                type="file"
+                name="resume"
+                (change)="handleUpload($event)"
+              />
+              <span
+                *ngIf="backroundInputImage"
+                style="width: 100%; height: 300px"
+                [style.background-image]="backroundInputImage"
+                class="file-cta w-100 input is-success"
+              >
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">Update medicine image...</span>
+              </span>
+
+              <span
+                *ngIf="!backroundInputImage"
+                style="width: 100%; height: 300px"
+                [style.background-image]="updatedBackroundInputImage"
+                class="file-cta w-100 input is-success"
+              >
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">medicine image uploaded...</span>
+                <span>{{ imageName }}</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="field">
+            <div class="d-flex">
+              <p class="control w-100 mr-2 has-icons-left">
+                <input
+                  [(ngModel)]="post.priceInDollar"
+                  autocomplete="off"
+                  class="input"
+                  name="priceInDollar"
+                  type="text"
+                  formControlName="priceInDollar"
+                  placeholder="Price"
+                  [ngClass]="{
+                    'is-danger':
+                      priceInDollar.invalid &&
+                      (priceInDollar.dirty || priceInDollar.touched),
+                    'is-success': priceInDollar.valid
+                  }"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-dollar"></i>
+                </span>
+
+                <app-error-field
+                  [control]="priceInDollar"
+                  [errorMessages]="validationMessages.priceInDollar"
+                >
+                </app-error-field>
+              </p>
+              <p
+                [ngClass]="{
+                  'is-danger':
+                    location.invalid && (location.dirty || location.touched),
+                  'is-success': location.valid
+                }"
+                class="control is-fullwidth select m-0"
+              >
+                <select
+                  [(ngModel)]="post.location"
+                  [class.has-text-black]="Location"
+                  (change)="switchLocation()"
+                  formControlName="location"
+                >
+                  <option value="" hidden selected>
+                    Choose your location...
+                  </option>
+
+                  <option *ngFor="let location of locations" [value]="location">
+                    {{ location }}
+                  </option>
+                </select>
+              </p>
+              <app-error-field
+                [control]="location"
+                [errorMessages]="validationMessages.location"
+              >
+              </app-error-field>
+            </div>
+          </div>
+
+          <div class="my-4">
+            <button
+              type="submit"
+              class="btn w-100 my-1"
+              [disabled]="updatePostForm.invalid"
+              [ngClass]="updatePostForm.invalid ? 'btn-primary' : 'btn-success'"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
